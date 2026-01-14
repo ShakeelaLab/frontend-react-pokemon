@@ -1,1 +1,49 @@
-/*Schrijf hier jouw eigen CSS!*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #efba01;
+    display: flex;
+    /*flex-direction: column;*/
+    justify-content: center;
+}
+
+.outer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    border: 2px solid red;
+}
+
+.logo {
+    width: 40%;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 10px;
+}
+
+.previous-button, .next-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 4rem;
+    width: 100px;
+    background-color: #205bab;
+    color: white;
+}
+
+.pokemon-card {
+    padding: 20px;
+    background-color: white;
+}
+
+li {
+    list-style: none;
+}
