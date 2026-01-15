@@ -7,7 +7,9 @@ import axios from "axios";
 function App() {
     const [loading, toggleLoading] = useState(false);
     const [error, setError] = useState(false);
-    const [getPokemon, setGetPokemon] = useState([]);
+    const [getPokemon, setGetPokemon] = useState(null);
+    const [page, setPage] = useState(0);
+
 
     useEffect(() => {
 
@@ -15,13 +17,14 @@ function App() {
             toggleLoading(true);
             try {
                 setError(false);
-                const response = await axios.get('https://pokeapi.co/api/v2/pokemon/', {
+                const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/`, {
                     params: {
-                        limit: 20
+                        limit: 20,
+                        offset: page * 20
                     }
                 });
-                console.log(response.data)
-                setGetPokemon(response.data.results);
+                console.log(response)
+                setGetPokemon(response.data)
             } catch (error) {
                 console.error(error);
                 setError(true);
@@ -32,7 +35,7 @@ function App() {
 
         fetchPokemon()
 
-    }, [])
+    }, [page])
 
     return (
         <>
@@ -43,23 +46,29 @@ function App() {
                     <button
                         className="previous-button"
                         type="button"
-                        onClick={() => setGetPokemon(prevState => prevState)}
+                        onClick={() => setPage((page) => Math.max(page - 1, 0))}
                     >vorige
                     </button>
                     <button
                         className="next-button"
                         type="button"
+                        onClick={() => setPage((page) => page + 1)}
                     >volgende
                     </button>
                 </div>
-                {getPokemon.map((pokemon, index) => ( <li key={index}> <div className="pokemon-card"><p>{pokemon.name}</p></div> </li> ))}
-                <img src="" alt=""/>
-                <p>Moves: </p>
-                <p>Weight: </p>
-                <p>Abilities:</p>
-                <p>cute-charm</p>
-                <p>competitive</p>
-                <p>friend-guard</p>
+                <div className="pokemon-list">
+                    {getPokemon?.results?.map((pokemon, index) => {
+                        // voor nu kan het alleen op deze manier om png te kunnen laten zien, {pokemon.sprites.front_default} werkt niet, ook niet met vraagtekens ertussen
+                        const id = pokemon.url.split("/")[6];
+                        return (<li key={index}>
+                            <div className="pokemon-card">
+                                <p>{pokemon.name}</p> <img
+                                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}
+                                alt={pokemon.name}/></div>
+                        </li>);
+                    })}
+                </div>
+
             </section>
         </>
     )

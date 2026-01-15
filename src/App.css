@@ -7,7 +7,6 @@
 body {
     background-color: #efba01;
     display: flex;
-    /*flex-direction: column;*/
     justify-content: center;
 }
 
@@ -17,7 +16,6 @@ body {
     justify-content: center;
     align-items: center;
     max-width: 1200px;
-    border: 2px solid red;
 }
 
 .logo {
@@ -40,10 +38,25 @@ body {
 }
 
 .pokemon-card {
-    padding: 20px;
     background-color: white;
+    width: 220px;
+    height: 220px;
+    border: 2px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-transform: capitalize;
 }
 
 li {
     list-style: none;
+}
+
+.pokemon-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 0;
 }
