@@ -24,28 +24,6 @@ body {
     width: 40%;
 }
 
-.buttons-container {
-    display: flex;
-    gap: 10px;
-    padding-bottom: 1rem;
-}
-
-.previous-button, .next-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem 4rem;
-    width: 100px;
-    background-color: #205bab;
-    color: white;
-}
-
-.previous-button:disabled, .next-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
 .pokemon-list {
     display: flex;
     flex-wrap: wrap;
