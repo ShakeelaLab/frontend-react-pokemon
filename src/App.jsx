@@ -2,7 +2,9 @@ import './App.css'
 import logo from './assets/logo.png'
 import {useEffect, useState} from "react";
 import axios from "axios";
-import PokemonCard from "./component/PokemonCard.jsx";
+import PokemonCard
+    from "./component/pokemonCard/PokemonCard.jsx";
+import Button from "./component/button/Button.jsx";
 
 function App() {
     const [loading, setLoading] = useState(false);
@@ -11,6 +13,9 @@ function App() {
     const [page, setPage] = useState(0);
 
     useEffect(() => {
+
+        const controller = new AbortController();
+
         async function fetchPokemon() {
             setLoading(true);
             try {
@@ -31,6 +36,9 @@ function App() {
         }
 
         fetchPokemon();
+        return function cleanup() {
+            controller.abort();
+        }
     }, [page]);
 
 
@@ -39,16 +47,17 @@ function App() {
                                                   alt="logo pokemon"
                                                   className="logo"/>
             <div className="buttons-container">
-                <button className="previous-button"
-                        type="button"
-                        disabled={page === 0}
-                        onClick={() => setPage((p) => Math.max(p - 1, 0))}> vorige
-                </button>
-                <button className="next-button"
-                        type="button"
-                        disabled={page >= 67}
-                        onClick={() => setPage((p) => p + 1)}> volgende
-                </button>
+                <Button
+                className="previous-button" type="button"
+                disabled={page === 0}
+                onClick={() => setPage((p) => Math.max(p - 1, 0))}>
+                    vorige
+                </Button>
+                <Button className="next-button"
+                        type="button" disabled={page >= 67}
+                        onClick={() => setPage((p) => p + 1)}>
+                    volgende
+                </Button>
             </div>
             {loading && <p>Loading...</p>} {error &&
                 <p>Er ging iets mis!</p>}

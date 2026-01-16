@@ -1,7 +1,7 @@
 .pokemon-card {
     background-color: white;
     width: 220px;
-    height: 320px;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;

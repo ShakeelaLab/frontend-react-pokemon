@@ -17,6 +17,7 @@ body {
     justify-content: center;
     align-items: center;
     max-width: 1200px;
+    padding-bottom: 2rem;
 }
 
 .logo {

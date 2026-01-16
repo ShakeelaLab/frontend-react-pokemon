@@ -6,12 +6,18 @@ function PokemonCard({pokemon}) {
     const [details, setDetails] = useState(null);
 
     useEffect(() => {
+
+        const controller = new AbortController();
+
         async function fetchDetails() {
             const response = await axios.get(pokemon.url);
             setDetails(response.data);
         }
 
         fetchDetails();
+        return function cleanup() {
+            controller.abort();
+        }
     }, [pokemon.url]);
 
     return (
