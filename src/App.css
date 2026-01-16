@@ -8,6 +8,7 @@ body {
     background-color: #efba01;
     display: flex;
     justify-content: center;
+    font-family: sans-serif, Arial;
 }
 
 .outer-container {
@@ -25,6 +26,7 @@ body {
 .buttons-container {
     display: flex;
     gap: 10px;
+    padding-bottom: 1rem;
 }
 
 .previous-button, .next-button {
@@ -37,20 +39,10 @@ body {
     color: white;
 }
 
-.pokemon-card {
-    background-color: white;
-    width: 220px;
-    height: 220px;
-    border: 2px solid red;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-transform: capitalize;
-}
-
-li {
-    list-style: none;
+.previous-button:disabled, .next-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
 }
 
 .pokemon-list {
@@ -59,4 +51,8 @@ li {
     gap: 20px;
     justify-content: center;
     padding: 0;
+}
+
+h3 {
+    font-weight: bold;
 }
