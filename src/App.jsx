@@ -21,6 +21,7 @@ function App() {
             try {
                 setError(false);
                 const response = await axios.get("https://pokeapi.co/api/v2/pokemon", {
+                    signal: controller.signal,
                     params: {
                         limit: 20,
                         offset: page * 20
