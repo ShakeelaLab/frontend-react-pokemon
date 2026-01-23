@@ -1,5 +1,6 @@
 .pokemon-card {
     background-color: white;
+    color: #1a1a1a;
     flex-basis: 220px;
     flex-shrink: 1;
     padding: 1rem;

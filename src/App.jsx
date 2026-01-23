@@ -11,6 +11,8 @@ function App() {
     const [error, setError] = useState(false);
     const [pokemonList, setPokemonList] = useState([]);
     const [page, setPage] = useState(0);
+    const [hasNext, setHasNext] = useState(false);
+    const [hasPrevious, setHasPrevious] = useState(false);
 
     useEffect(() => {
 
@@ -28,6 +30,8 @@ function App() {
                     }
                 });
                 setPokemonList(response.data.results);
+                setHasNext(Boolean(response.data.next));
+                setHasPrevious(Boolean(response.data.previous));
             } catch (err) {
                 console.error(err);
                 setError(true);
@@ -49,13 +53,14 @@ function App() {
                                                   className="logo"/>
             <div className="buttons-container">
                 <Button
-                className="previous-button" type="button"
-                disabled={page === 0}
-                onClick={() => setPage((p) => Math.max(p - 1, 0))}>
+                    className="previous-button"
+                    type="button"
+                    disabled={!hasPrevious}
+                    onClick={() => setPage((p) => Math.max(p - 1, 0))}>
                     vorige
                 </Button>
                 <Button className="next-button"
-                        type="button" disabled={page >= 67}
+                        type="button" disabled={!hasNext}
                         onClick={() => setPage((p) => p + 1)}>
                     volgende
                 </Button>
@@ -63,8 +68,8 @@ function App() {
             {loading && <p>Loading...</p>} {error &&
                 <p>Er ging iets mis!</p>}
 
-            <ul className="pokemon-list"> {pokemonList.map((pokemon, index) => (
-                <PokemonCard key={index}
+            <ul className="pokemon-list"> {pokemonList.map((pokemon) => (
+                <PokemonCard key={pokemon.url}
                              pokemon={pokemon}/>))}
             </ul>
         </section>);

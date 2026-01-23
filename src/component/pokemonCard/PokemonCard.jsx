@@ -4,14 +4,23 @@ import './PokemonCard.css'
 
 function PokemonCard({pokemon}) {
     const [details, setDetails] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
-
         const controller = new AbortController();
 
         async function fetchDetails() {
-            const response = await axios.get(pokemon.url);
-            setDetails(response.data);
+            setLoading(true);
+            try {
+                const response = await axios.get(pokemon.url);
+                setDetails(response.data);
+            }catch (err) {
+                console.error(err);
+                setError(true);
+            } finally {
+                setLoading(false);
+            }
         }
 
         fetchDetails();
@@ -21,10 +30,10 @@ function PokemonCard({pokemon}) {
     }, [pokemon.url]);
 
     return (
-        <li className="pokemon-card">
+        <ul className="pokemon-card">
             <h3>{pokemon.name}</h3>
-
-            {!details && <p>Loading...</p>}
+            {loading && <p>Loading...</p>} {error &&
+            <p>Er ging iets mis!</p>}
 
             {details && (
                 <>
@@ -33,22 +42,22 @@ function PokemonCard({pokemon}) {
                         alt={pokemon.name}
                     />
 
-                    <p><strong>
+                    <li><strong>
                         Moves: </strong>{details.moves.length}
-                    </p>
-                    <p><strong>
+                    </li>
+                    <li><strong>
                         Weight: </strong>{details.weight}
-                    </p>
-                    <p><strong>
+                    </li>
+                    <li><strong>
                         Abilities:
-                    </strong></p>
+                    </strong></li>
                     <div
-                        className="abilities"> {details.abilities.map((a, index) => (
-                        <span key={index}
+                        className="abilities"> {details.abilities.map((a) => (
+                        <span key={a.ability.name + a.slot}
                               className="ability"> {a.ability.name} </span>))} </div>
                 </>
             )}
-        </li>
+        </ul>
     );
 }
 
